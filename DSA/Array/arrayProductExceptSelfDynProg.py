@@ -34,6 +34,8 @@ The input is generated such that answer[i] is guaranteed to fit in a 32-bit inte
     As we traversed main array only twice which is O(2n) and 2 constant can be ignored, it is 
     effectively O(n)
     with Space complextity of O(n) due to prefix product array.
+
+    This can be further optimized if we used the prefix product array itself for final result.
 '''
 
 
@@ -55,18 +57,36 @@ def get_products(nums, prefix_products, products):
         suffix_product = suffix_product * nums[index]
         index -= 1
 
+def get_products_optimized(nums, prefix_products):
+    suffix_product = 1
+    index = len(nums) - 1
+
+    while index >= 0:
+        prefix_products[index]  = prefix_products[index] * suffix_product
+        suffix_product = suffix_product * nums[index]
+        index -= 1
+
+    print(f"\tOptimized output: {prefix_products}")
+
+
 def get_array_product_except_self(nums):
     num_len = len(nums)
     prefix_products = [1] * num_len
     products = [1] * num_len
+    run_optimized = True
 
     # Create Prefix product array.
     get_prefix_products(nums, prefix_products)
-    get_products(nums, prefix_products, products)
 
-    print(f"Input: {nums}")
-    print(f"\tPrefixes: {prefix_products}")
-    print(f"\tOutput: {products}")
+    if(run_optimized):
+        print(f"Input: {nums}")
+        get_products_optimized(nums, prefix_products)
+    else:
+        get_products(nums, prefix_products, products)
+       
+        print(f"Input: {nums}")
+        print(f"\tPrefixes: {prefix_products}")
+        print(f"\tOutput: {products}")
 
 
 #main
