@@ -1,6 +1,7 @@
 # find 2 numbers from given array, whose sum is equal to given target
 # return the indecies both the number. Assume, there is always a such 
 # valid pair in the array.
+#
 
 #arr = [1,3,4,5,6,8,3]
 arr = [-1,13,14,5,6,10]
